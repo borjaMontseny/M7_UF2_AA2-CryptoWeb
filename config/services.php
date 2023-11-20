@@ -30,5 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'coinmarketcap' => [
+        'base_uri' => 'https://pro-api.coinmarketcap.com/v1/',
+        'api_key' => env('API_KEY'),
+    ],
 
 ];
