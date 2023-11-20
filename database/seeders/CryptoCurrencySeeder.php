@@ -2,16 +2,44 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CryptoCurrency;
+use GuzzleHttp\Client;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CryptoCurrencySeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      */
     public function run(): void
     {
-        //
+        $client = new Client();
+
+        // Realizar la solicitud a la API de CoinMarketCap
+        $response = $client->request('GET', 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', [
+            'headers' => [
+                'X-CMC_PRO_API_KEY' => env('COINMARKET_CLIENT_ID'),
+
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+
+        // Procesar los datos obtenidos
+        $cryptos = $data['data'];
+
+        // Almacenar los datos en la base de datos
+        foreach ($cryptos as $crypto) {
+            CryptoCurrency::create([
+                'name' => $crypto['name'],
+                'symbol' => $crypto['symbol'],
+                'price' => $crypto['quote']['USD']['price'],
+                'volumen' => $crypto['quote']['USD']['volume_24h'],
+                'market_cap' => $crypto['quote']['USD']['market_cap'],
+            ]);
+        }
     }
 }
