@@ -19,9 +19,15 @@ class CreateCryptocurrenciesTable extends Migration
             $table->string('symbol');
             $table->string('slug');
             $table->decimal('price', 20, 10);
+<<<<<<< .merge_file_g32LqA
             $table->decimal('volume_change_1h', 20, 10)->nullable();
             $table->decimal('volume_change_24h', 20, 10)->nullable();
             $table->decimal('volume_change_7d', 20, 10)->nullable();
+=======
+            $table->decimal('percent_change_1h', 20, 10)->nullable();
+            $table->decimal('percent_change_24h', 20, 10)->nullable();
+            $table->decimal('percent_change_7d', 20, 10)->nullable();
+>>>>>>> .merge_file_FtuuyO
             $table->bigInteger('market_cap')->nullable();
             $table->bigInteger('volume_24h')->nullable();
             $table->bigInteger('total_supply')->nullable();
@@ -38,4 +44,8 @@ class CreateCryptocurrenciesTable extends Migration
     {
         Schema::dropIfExists('cryptocurrencies');
     }
+<<<<<<< .merge_file_g32LqA
 }
+=======
+}
+>>>>>>> .merge_file_FtuuyO

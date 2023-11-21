@@ -37,7 +37,9 @@ class CryptoCurrencyController extends Controller
      */
     public function show(CryptoCurrency $cryptoCurrency)
     {
-        //
+        $cryptoCurrencies = CryptoCurrency::all();
+        return view('criptos', compact('cryptoCurrencies'));
+
     }
 
     /**

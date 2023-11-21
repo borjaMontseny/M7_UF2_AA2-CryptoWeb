@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CryptoCurrencyController;
+use App\Models\CryptoCurrency;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +24,5 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/criptos', [CryptoCurrencyController::class, 'show'])->name('criptos');
 });

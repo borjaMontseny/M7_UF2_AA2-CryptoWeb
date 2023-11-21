@@ -30,10 +30,16 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+<<<<<<< .merge_file_vuoI27
     
     'coinmarketcap' => [
         'base_uri' => 'https://pro-api.coinmarketcap.com/v1/',
         'api_key' => env('API_KEY'),
+=======
+    'coinmarketcap' => [
+        'base_uri' => 'https://pro-api.coinmarketcap.com/v1/',
+        'api_key' => env('CMC_API_KEY_ADRI'),
+>>>>>>> .merge_file_Tu9M7r
     ],
 
 ];
