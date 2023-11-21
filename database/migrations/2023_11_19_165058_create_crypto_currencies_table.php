@@ -4,24 +4,38 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateCryptocurrenciesTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('crypto_currencies', function (Blueprint $table) {
-            $table->id();
+        Schema::create('cryptocurrencies', function (Blueprint $table) {
+            $table->integer('rank_id')->primary();
+            $table->string('name');
+            $table->string('symbol');
+            $table->string('slug');
+            $table->decimal('price', 20, 10);
+            $table->decimal('percent_change_1h', 20, 10)->nullable();
+            $table->decimal('percent_change_24h', 20, 10)->nullable();
+            $table->decimal('percent_change_7d', 20, 10)->nullable();
+            $table->bigInteger('market_cap')->nullable();
+            $table->bigInteger('volume_24h')->nullable();
+            $table->bigInteger('total_supply')->nullable();
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('crypto_currencies');
+        Schema::dropIfExists('cryptocurrencies');
     }
-};
+}

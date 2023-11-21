@@ -17,14 +17,14 @@ class CryptoCurrency extends Model
     protected $table = 'cryptocurrencies';
 
     protected $fillable = [
-        'rank',
+        'rank_id',
         'name',
         'symbol',
         'slug',
         'price',
-        'volume_1h',
-        'volume_24h',
-        'volume_7d',
+        'percent_change_1h',
+        'percent_change_24h',
+        'percent_change_7d',
         'market_cap',
         'volume_24h',
         'total_supply',
