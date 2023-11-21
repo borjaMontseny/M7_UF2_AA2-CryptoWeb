@@ -33,15 +33,9 @@ class CryptoCurrencySeeder extends Seeder
                     'symbol' => $crypto['symbol'],
                     'slug' => $crypto['slug'],
                     'price' => $crypto['quote']['USD']['price'],
-<<<<<<< .merge_file_Xxd1Bh
                     'volume_change_1h' => $crypto['quote']['USD']['percent_change_1h'],
                     'volume_change_24h' => $crypto['quote']['USD']['percent_change_24h'],
                     'volume_change_7d' => $crypto['quote']['USD']['percent_change_7d'],
-=======
-                    'percent_change_1h' => $crypto['quote']['USD']['percent_change_1h'],
-                    'percent_change_24h' => $crypto['quote']['USD']['percent_change_24h'],
-                    'percent_change_7d' => $crypto['quote']['USD']['percent_change_7d'],
->>>>>>> .merge_file_ijGTBH
                     'market_cap' => $crypto['quote']['USD']['market_cap'],
                     'volume_24h' => $crypto['quote']['USD']['volume_24h'],
                     'total_supply' => $crypto['total_supply'],
