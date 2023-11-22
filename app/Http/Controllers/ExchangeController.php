@@ -37,7 +37,9 @@ class ExchangeController extends Controller
      */
     public function show(Exchange $exchange)
     {
-        //
+        $exchanges = Exchange::all();
+        return view('exchanges', compact('exchanges'));
+
     }
 
     /**
