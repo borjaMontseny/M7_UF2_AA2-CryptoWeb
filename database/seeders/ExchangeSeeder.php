@@ -15,23 +15,14 @@ class ExchangeSeeder extends Seeder
      */
     public function run()
     {
-        // Obtener la parte base de la URL de la API desde el archivo .env
-        $baseUrl = env('API_BASE_URL');
-
         // Concatenar con el endpoint necesario
-        $apiEndpoint = 'v1/exchange/info?id=270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,310,311,313,314,315,316,317,318,319,320';
-        $apiUrl = rtrim($baseUrl, '/') . '/' . ltrim($apiEndpoint, '/');
-        $apiKey = env('API_KEY');
-        $headers = [
+        $apiKey = config('services.coinmarketcap.api_key');
+        $endpoint = config('services.coinmarketcap.base_uri') . 'exchange/info?id=270,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80';
+
+        $response = Http::withHeaders([
             'X-CMC_PRO_API_KEY' => $apiKey,
             'Accepts' => 'application/json',
-        ];
-
-
-        // Hacer la solicitud a la API
-        $response = Http::withHeaders($headers)->get($apiUrl);
-
-        $this->command->info($response);
+        ])->get($endpoint);
 
         // Verificar si la solicitud fue exitosa
         if ($response->successful()) {
@@ -40,16 +31,18 @@ class ExchangeSeeder extends Seeder
 
             // Iterar sobre los datos y crear registros en la tabla exchanges
             foreach ($data as $exchangeData) {
-                Exchange::create([
-                    'id' => $exchangeData['id'],
-                    'name' => $exchangeData['name'],
-                    'slug' => $exchangeData['slug'],
-                    'logo' => $exchangeData['logo'],
-                    'fiats' => json_encode($exchangeData['fiats']),
-                    'spot_volume_usd' => $exchangeData['spot_volume_usd'],
-                    'weekly_visits' => $exchangeData['weekly_visits'],
-                    // Añadir otras columnas según sea necesario
-                ]);
+                if ($exchangeData['spot_volume_usd'] != null) {
+                    Exchange::create([
+                        'id' => $exchangeData['id'],
+                        'name' => $exchangeData['name'],
+                        'slug' => $exchangeData['slug'],
+                        'logo' => $exchangeData['logo'],
+                        'fiats' => json_encode($exchangeData['fiats']),
+                        'spot_volume_usd' => $exchangeData['spot_volume_usd'],
+                        'weekly_visits' => $exchangeData['weekly_visits'],
+                        // Añadir otras columnas según sea necesario
+                    ]);
+                }
             }
 
             $this->command->info('ExchangeSeeder ejecutado exitosamente!');

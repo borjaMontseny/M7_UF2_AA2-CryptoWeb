@@ -16,5 +16,6 @@ class DataBaseSeeder extends Seeder
     public function run(): void
     {
         $this -> call(CryptoCurrencySeeder::class);
+        $this -> call(ExchangeSeeder::class);
     }
 }
