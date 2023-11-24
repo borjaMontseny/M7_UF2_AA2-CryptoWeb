@@ -17,5 +17,6 @@ class DataBaseSeeder extends Seeder
     {
         $this -> call(CryptoCurrencySeeder::class);
         $this -> call(ExchangeSeeder::class);
+        $this -> call(CryptoCurrencyHistoricSeeder::class);
     }
 }
