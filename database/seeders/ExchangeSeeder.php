@@ -29,11 +29,12 @@ class ExchangeSeeder extends Seeder
             // Obtener los datos del JSON de la respuesta
             $data = $response->json()['data'];
 
+            $id = 1;
             // Iterar sobre los datos y crear registros en la tabla exchanges
             foreach ($data as $exchangeData) {
                 if ($exchangeData['spot_volume_usd'] != null) {
                     Exchange::create([
-                        'id' => $exchangeData['id'],
+                        'id' => $id,
                         'name' => $exchangeData['name'],
                         'slug' => $exchangeData['slug'],
                         'logo' => $exchangeData['logo'],
@@ -42,6 +43,7 @@ class ExchangeSeeder extends Seeder
                         'weekly_visits' => $exchangeData['weekly_visits'],
                         // Añadir otras columnas según sea necesario
                     ]);
+                    $id++;
                 }
             }
 

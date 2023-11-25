@@ -12,7 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('crypto_currency_historics', function (Blueprint $table) {
-            $table->id();
+            $table->integer('rank_id')->primary();
+            $table->string('name');
+            $table->string('symbol');
+            $table->string('slug');
+            $table->decimal('price', 20, 10);
+            $table->decimal('percent_change_1h', 20, 10)->nullable();
+            $table->decimal('percent_change_24h', 20, 10)->nullable();
+            $table->decimal('percent_change_7d', 20, 10)->nullable();
+            $table->bigInteger('market_cap')->nullable();
+            $table->bigInteger('volume_24h')->nullable();
+            $table->bigInteger('total_supply')->nullable();
+            $table->longText('historial');
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@
                                 @foreach ($exchanges as $exchange)
                                     <tr class="">
                                         <td class="px-6 py-4 whitespace-nowrap transition-all hover:bg-gray-100 text-right">{{ $exchange->id }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap transition-all hover:bg-gray-100" style="display: flex;"><img src="{{ $exchange->logo }}" class="w-8 h-8">&nbsp;{{ $exchange->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap transition-all hover:bg-gray-100" style="display: flex;"><img src="{{ $exchange->logo }}" class="w-8 h-8">&nbsp;<a href="{{ route('history', ['cryptocurrency' => $exchange->slug]) }}">{{ $exchange->name }}</a></td>
                                         <td class="px-6 py-4 whitespace-nowrap transition-all hover:bg-gray-100 text-right">${{ number_format($exchange->spot_volume_usd, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap transition-all hover:bg-gray-100">
                                             @php

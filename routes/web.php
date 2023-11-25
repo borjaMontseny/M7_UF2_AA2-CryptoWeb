@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CryptoCurrencyController;
+use App\Http\Controllers\CryptoCurrencyHistoricController;
 use App\Http\Controllers\ExchangeController;
 use App\Models\CryptoCurrency;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/criptos', [CryptoCurrencyController::class, 'show'])->name('criptos');
     Route::get('/exchanges', [ExchangeController::class, 'show'])->name('exchanges');
+    Route::get('/history/{cryptocurrency}', [CryptoCurrencyHistoricController::class, 'show'])->name('history');
 });

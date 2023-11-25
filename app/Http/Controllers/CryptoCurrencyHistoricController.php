@@ -35,10 +35,12 @@ class CryptoCurrencyHistoricController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CryptoCurrencyHistoric $cryptoCurrencyHistoric)
+    public function show($cryptocurrency)
     {
-        //
-    }
+        $cryptoCurrency = CryptoCurrencyHistoric::where('slug', $cryptocurrency)->firstOrFail();
+        $historialArray = json_decode($cryptoCurrency->historial, true);
+        return view('history', compact('cryptoCurrency', 'historialArray'));
+    }    
 
     /**
      * Show the form for editing the specified resource.
