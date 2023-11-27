@@ -30,4 +30,9 @@ class CryptoCurrencyHistoric extends Model
         'total_supply',
         'historial'
     ];
+
+    public function cryptoCurrency()
+{
+    return $this->belongsTo(CryptoCurrency::class, 'slug', 'slug');
+}
 }
