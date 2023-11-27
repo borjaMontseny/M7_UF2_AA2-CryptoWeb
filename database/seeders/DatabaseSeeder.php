@@ -15,6 +15,12 @@ class DataBaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Crearemos un usuario administrador
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin'),
+        ]);
         $this -> call(CryptoCurrencySeeder::class);
         $this -> call(ExchangeSeeder::class);
         $this -> call(CryptoCurrencyHistoricSeeder::class);
