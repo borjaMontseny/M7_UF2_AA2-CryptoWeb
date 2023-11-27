@@ -37,9 +37,15 @@ class CryptoCurrencyHistoricController extends Controller
      */
     public function show($cryptocurrency)
     {
+
+        try {
         $cryptoCurrency = CryptoCurrencyHistoric::where('slug', $cryptocurrency)->firstOrFail();
         $historialArray = json_decode($cryptoCurrency->historial, true);
         return view('history', compact('cryptoCurrency', 'historialArray'));
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        // Criptomoneda no encontrada, muestra la página personalizada
+        return view('hystory-not-found');
+    }
     }    
 
     /**
