@@ -65,8 +65,79 @@
                         </table>
                         <br>
 
-                        <h2><strong>Historial</strong></h2>
-                        <div id="cryptoChart" style="height: 300px;"></div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                @foreach ($cryptoCurrencies as $cripto)
+                                    @if (!empty($cripto->historialArray))
+                                        var historialArray_{{ $cripto->symbol }} = @json($cripto->historialArray);
+                                        var categories_{{ $cripto->symbol }} = historialArray_{{ $cripto->symbol }}.map(item =>
+                                            new Date(item[0]).toLocaleString());
+                                        var values_{{ $cripto->symbol }} = historialArray_{{ $cripto->symbol }}.map(item =>
+                                            parseFloat(item[1]).toFixed(2));
+
+                                        values_{{ $cripto->symbol }} = values_{{ $cripto->symbol }}.map(parseFloat);
+
+                                        Highcharts.chart("cryptoChart_{{ $cripto->symbol }}", {
+                                            chart: {
+                                                type: "line",
+                                            },
+                                            title: {
+                                                text: "",
+                                            },
+                                            xAxis: {
+                                                categories: categories_{{ $cripto->symbol }}, // Corregir el nombre de la variable
+                                                lineColor: "transparent",
+                                                labels: {
+                                                    enabled: false,
+                                                },
+                                                title: {
+                                                    text: "",
+                                                },
+                                                gridLineWidth: 0,
+                                            },
+                                            yAxis: {
+                                                labels: {
+                                                    enabled: false,
+                                                },
+                                                title: {
+                                                    text: "",
+                                                },
+                                                gridLineWidth: 0,
+                                            },
+                                            legend: {
+                                                enabled: false,
+                                            },
+                                            plotOptions: {
+                                                series: {
+                                                    marker: {
+                                                        enabled: false, // Oculta los marcadores de la línea
+                                                    },
+                                                },
+                                            },
+                                            series: [{
+                                                name: "Precio de la Criptomoneda",
+                                                data: values_{{ $cripto->symbol }}, // Corregir el nombre de la variable
+                                                color: "blue",
+                                            }],
+                                            tooltip: {
+                                                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>${point.y:,.2f}</b><br/>'
+                                            },
+                                            credits: {
+                                                enabled: false,
+                                            },
+                                            chart: {
+                                                events: {
+                                                    load: function() {
+                                                        // Oculta completamente el eje X y sus clases asociadas
+                                                        this.xAxis[0].axisGroup.hide();
+                                                    },
+                                                },
+                                            },
+                                        });
+                                    @endif
+                                @endforeach
+                            });
+                        </script>
 
                         <h2><strong>Historial</strong></h2>
                         <table class="min-w-full divide-y divide-gray-200">
@@ -99,75 +170,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Obtener datos del historial y formatearlos
-                var historialArray = @json($historialArray);
-                var categories = historialArray.map(item => new Date(item[0]).toLocaleString());
-                var values = historialArray.map(item => parseFloat(item[1]).toFixed(2));
-
-                // Convertir valores a números
-                values = values.map(parseFloat);
-
-                Highcharts.chart("cryptoChart", {
-                    chart: {
-                        type: "line",
-                    },
-                    title: {
-                        text: "",
-                    },
-                    xAxis: {
-                        categories: categories,
-                        lineColor: "transparent",
-                        labels: {
-                            enabled: false,
-                        },
-                        title: {
-                            text: "",
-                        },
-                        gridLineWidth: 0,
-                    },
-                    yAxis: {
-                        labels: {
-                            enabled: false,
-                        },
-                        title: {
-                            text: "",
-                        },
-                        gridLineWidth: 0,
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false, // Oculta los marcadores de la línea
-                            },
-                        },
-                    },
-                    series: [{
-                        name: "Precio de la Criptomoneda",
-                        data: values,
-                        color: "blue",
-                    }],
-                    tooltip: {
-                        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>${point.y:,.2f}</b><br/>'
-                    },
-                    credits: {
-                        enabled: false,
-                    },
-                    chart: {
-                        events: {
-                            load: function() {
-                                // Oculta completamente el eje X y sus clases asociadas
-                                this.xAxis[0].axisGroup.hide();
-                            },
-                        },
-                    },
-                });
-            });
-        </script>
     @else
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
